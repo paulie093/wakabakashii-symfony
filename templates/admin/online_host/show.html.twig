@@ -1,0 +1,23 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ online_host.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ online_host.name }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ online_host.url }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('app_admin_online_host_index') }}">back to list</a>
+    <a href="{{ path('app_admin_online_host_edit', {'id': online_host.id}) }}">edit</a>
+    {{ include('admin/online_host/_delete_form.html.twig') }}
+{% endblock %}

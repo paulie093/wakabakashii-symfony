@@ -1,0 +1,30 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Azonosító</th>
+                <th>Becenév</th>
+                <th>Műveletek</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for member in members %}
+            <tr>
+                <td>{{ member.id }}</td>
+                <td>{{ member.nickname }}</td>
+                <td>
+                    <a href="{{ path('app_admin_fansub_member_show', {'id': member.id}) }}">Megtekintés</a>
+                    <a href="{{ path('app_admin_fansub_member_edit', {'id': member.id}) }}">Szerkesztés</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Nem található rekord</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_admin_fansub_member_new') }}">Új létrehozása</a>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Token</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for project_video_quality in project_video_qualities %}
+            <tr>
+                <td>{{ project_video_quality.id }}</td>
+                <td>{{ project_video_quality.token }}</td>
+                <td>{{ project_video_quality.name }}</td>
+                <td>
+                    <a href="{{ path('app_admin_project_video_quality_show', {'id': project_video_quality.id}) }}">show</a>
+                    <a href="{{ path('app_admin_project_video_quality_edit', {'id': project_video_quality.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_project_video_quality_new') }}">Create new</a>
+{% endblock %}

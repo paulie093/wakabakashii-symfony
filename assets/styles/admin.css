@@ -1,0 +1,8 @@
+@import "~font-awesome";
+@import '~startbootstrap-sb-admin-2/css/sb-admin-2.min.css';
+
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

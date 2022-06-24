@@ -1,0 +1,33 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Token</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for project_status in project_statuses %}
+            <tr>
+                <td>{{ project_status.id }}</td>
+                <td>{{ project_status.token }}</td>
+                <td>{{ project_status.name }}</td>
+                <td>
+                    <a href="{{ path('app_admin_project_status_show', {'id': project_status.id}) }}">show</a>
+                    <a href="{{ path('app_admin_project_status_edit', {'id': project_status.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_project_status_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Token</th>
+                <th>ShortName</th>
+                <th>WebsiteUrl</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for team in teams %}
+            <tr>
+                <td>{{ team.id }}</td>
+                <td>{{ team.name }}</td>
+                <td>{{ team.token }}</td>
+                <td>{{ team.shortName }}</td>
+                <td>{{ team.websiteUrl }}</td>
+                <td>
+                    <a href="{{ path('app_admin_fansub_team_show', {'id': team.id}) }}">show</a>
+                    <a href="{{ path('app_admin_fansub_team_edit', {'id': team.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_admin_fansub_team_new') }}">Create new</a>
+{% endblock %}

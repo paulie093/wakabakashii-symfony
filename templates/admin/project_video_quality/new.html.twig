@@ -1,0 +1,6 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block body %}
+    {{ include('admin/project_video_quality/_form.html.twig') }}
+    <a href="{{ path('app_admin_project_video_quality_index') }}">back to list</a>
+{% endblock %}

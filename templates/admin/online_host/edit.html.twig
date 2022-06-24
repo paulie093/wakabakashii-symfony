@@ -1,0 +1,7 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block body %}
+    {{ include('admin/online_host/_form.html.twig', {'button_label': 'Update'}) }}
+    <a href="{{ path('app_admin_online_host_index') }}">back to list</a>
+    {{ include('admin/online_host/_delete_form.html.twig') }}
+{% endblock %}

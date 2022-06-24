@@ -1,0 +1,6 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block body %}
+    {{ include('admin/fansub_member/_form.html.twig') }}
+    <a href="{{ path('app_admin_fansub_member_index') }}">back to list</a>
+{% endblock %}

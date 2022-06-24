@@ -1,0 +1,71 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block body %}
+    <h1>Project</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ project.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ project.title }}</td>
+            </tr>
+            <tr>
+                <th>TitleJap</th>
+                <td>{{ project.titleJap }}</td>
+            </tr>
+            <tr>
+                <th>Token</th>
+                <td>{{ project.token }}</td>
+            </tr>
+            <tr>
+                <th>StartYear</th>
+                <td>{{ project.startYear }}</td>
+            </tr>
+            <tr>
+                <th>EndYear</th>
+                <td>{{ project.endYear }}</td>
+            </tr>
+            <tr>
+                <th>EpisodeNumber</th>
+                <td>{{ project.episodeNumber }}</td>
+            </tr>
+            <tr>
+                <th>OfficialSiteUrl</th>
+                <td>{{ project.officialSiteUrl }}</td>
+            </tr>
+            <tr>
+                <th>AnimeNewsNetworkId</th>
+                <td>{{ project.animeNewsNetworkId }}</td>
+            </tr>
+            <tr>
+                <th>AniDbId</th>
+                <td>{{ project.aniDbId }}</td>
+            </tr>
+            <tr>
+                <th>MyAnimeListId</th>
+                <td>{{ project.myAnimeListId }}</td>
+            </tr>
+            <tr>
+                <th>ReleaseResolution</th>
+                <td>{{ project.releaseResolution }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ project.updatedAt ? project.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_project_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_project_edit', {'id': project.id}) }}">edit</a>
+
+    {{ include('admin/project/_delete_form.html.twig') }}
+{% endblock %}

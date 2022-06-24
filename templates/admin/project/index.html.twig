@@ -1,0 +1,55 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>TitleJap</th>
+                <th>Token</th>
+                <th>StartYear</th>
+                <th>EndYear</th>
+                <th>EpisodeNumber</th>
+                <th>OfficialSiteUrl</th>
+                <th>AnimeNewsNetworkId</th>
+                <th>AniDbId</th>
+                <th>MyAnimeListId</th>
+                <th>ReleaseResolution</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for project in projects %}
+            <tr>
+                <td>{{ project.id }}</td>
+                <td>{{ project.title }}</td>
+                <td>{{ project.titleJap }}</td>
+                <td>{{ project.token }}</td>
+                <td>{{ project.startYear }}</td>
+                <td>{{ project.endYear }}</td>
+                <td>{{ project.episodeNumber }}</td>
+                <td>{{ project.officialSiteUrl }}</td>
+                <td>{{ project.animeNewsNetworkId }}</td>
+                <td>{{ project.aniDbId }}</td>
+                <td>{{ project.myAnimeListId }}</td>
+                <td>{{ project.releaseResolution }}</td>
+                <td>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ project.updatedAt ? project.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_project_show', {'id': project.id}) }}">show</a>
+                    <a href="{{ path('app_admin_project_edit', {'id': project.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_project_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>TitleJapRomaji</th>
+                <th>TitleJapKanji</th>
+                <th>EpisodeNumber</th>
+                <th>UploadDate</th>
+                <th>DownloadUrl</th>
+                <th>OnlineEmbedId</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for episode in episodes %}
+            <tr>
+                <td>{{ episode.id }}</td>
+                <td>{{ episode.title }}</td>
+                <td>{{ episode.titleJapRomaji }}</td>
+                <td>{{ episode.titleJapKanji }}</td>
+                <td>{{ episode.episodeNumber }}</td>
+                <td>{{ episode.uploadDate ? episode.uploadDate|date('Y-m-d') : '' }}</td>
+                <td>{{ episode.downloadUrl }}</td>
+                <td>{{ episode.onlineEmbedId }}</td>
+                <td>
+                    <a href="{{ path('app_admin_project_episode_show', {'id': episode.id}) }}">show</a>
+                    <a href="{{ path('app_admin_project_episode_edit', {'id': episode.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_project_episode_new') }}">Create new</a>
+{% endblock %}

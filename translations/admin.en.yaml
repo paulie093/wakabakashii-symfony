@@ -1,0 +1,49 @@
+user:
+    login: Login
+    name: Username
+    password: Password
+
+homepage: Homepage
+
+message:
+    no_records: No records found.
+    back_to_list: Back to list
+    delete:
+        confirm: Are you REALLY sure you want to delete this item?
+
+column:
+    id: ID
+    title: Title
+    title_jap: Japanese Title
+    content: Content
+    created_at: Created At
+    updated_at: Updated At
+    actions: Actions
+    related_project: Related Project
+    author: Author
+    token: Token
+    year:
+        start: Start Year
+        end: End Year
+    episode_number: Number of Episodes
+    official_url: Official Site URL
+    ann_id: Anime News Network ID
+    mal_id: MyAnimeList ID
+    resolution: Release Resolution
+
+
+button:
+    add: Add new record
+    edit: Edit
+    save: Save
+    update: Update
+    delete: Delete
+    back_to_list: Back to list
+
+title:
+    news:
+        category: News
+        list: News list
+        add: Add news
+        edit: Edit news
+        show: News data

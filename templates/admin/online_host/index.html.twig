@@ -1,0 +1,32 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Url</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for online_host in online_hosts %}
+            <tr>
+                <td>{{ online_host.id }}</td>
+                <td>{{ online_host.name }}</td>
+                <td>{{ online_host.url }}</td>
+                <td>
+                    <a href="{{ path('app_admin_online_host_show', {'id': online_host.id}) }}">show</a>
+                    <a href="{{ path('app_admin_online_host_edit', {'id': online_host.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_admin_online_host_new') }}">Create new</a>
+{% endblock %}

@@ -1,32 +1,52 @@
 {% extends 'admin/dashboard.html.twig' %}
 
 {% block body %}
-    <table class="table">
-        <thead>
+    <table class="table table-hover">
+        <thead class="text-gray-900">
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Url</th>
-                <th>actions</th>
+                <th scope="col">{{ 'column.id'|trans([], 'admin') }}</th>
+                <th scope="col">{{ 'column.name.name'|trans([], 'admin') }}</th>
+                <th scope="col">{{ 'column.url.embed'|trans([], 'admin') }}</th>
+                <th scope="col">{{ 'column.actions'|trans([], 'admin') }}</th>
             </tr>
         </thead>
         <tbody>
         {% for online_host in online_hosts %}
             <tr>
-                <td>{{ online_host.id }}</td>
-                <td>{{ online_host.name }}</td>
-                <td>{{ online_host.url }}</td>
-                <td>
-                    <a href="{{ path('app_admin_online_host_show', {'id': online_host.id}) }}">show</a>
-                    <a href="{{ path('app_admin_online_host_edit', {'id': online_host.id}) }}">edit</a>
+                <td class="align-middle">{{ online_host.id }}</td>
+                <td class="align-middle">{{ online_host.name }}</td>
+                <td class="align-middle">{{ online_host.url }}</td>
+                <td class="align-middle">
+                    <a class="btn btn-primary btn-icon-split btn-sm" href="{{ path('app_admin_online_host_edit', {'id': online_host.id}) }}">
+                        <span class="icon text-white-50">
+                            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                        </span>
+                        <span class="text">{{ 'button.edit'|trans([], 'admin') }}</span>
+                    </a>
+                    <form class="d-inline" method="post" action="{{ path('app_admin_online_host_delete', {'id': online_host.id}) }}" onsubmit="return confirm('{{ 'message.delete.confirm'|trans([], 'admin') }}');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ online_host.id) }}">
+                        <button class="btn btn-danger btn-icon-split btn-sm">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </span>
+                            <span class="text">{{ 'button.delete'|trans([], 'admin') }}</span>
+                        </button>
+                    </form>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td class="align-middle" colspan="4">{{ 'message.no_records'|trans([], 'admin') }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('app_admin_online_host_new') }}">Create new</a>
+
+    <a class="btn btn-success btn-icon-split" href="{{ path('app_admin_online_host_new') }}">
+        <span class="icon text-white-50">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </span>
+        <span class="text">{{ 'button.add'|trans([], 'admin') }}</span>
+    </a>
+
 {% endblock %}

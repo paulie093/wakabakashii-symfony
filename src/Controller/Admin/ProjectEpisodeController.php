@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/admin/project-episode")
@@ -17,8 +18,9 @@ class ProjectEpisodeController extends AdminController
 {
     private EpisodeRepository $episodeRepository;
 
-    public function __construct(EpisodeRepository $episodeRepository)
+    public function __construct(TranslatorInterface $translator, EpisodeRepository $episodeRepository)
     {
+        parent::__construct($translator);
         $this->episodeRepository = $episodeRepository;
     }
 
@@ -52,17 +54,6 @@ class ProjectEpisodeController extends AdminController
             'page_title' => 'Új epizód hozzáadása',
             'episode' => $episode,
             'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_admin_project_episode_show", methods={"GET"})
-     */
-    public function show(Episode $episode): Response
-    {
-        return $this->render('admin/project_episode/show.html.twig', [
-            'page_title' => 'Epizód adatai',
-            'episode' => $episode,
         ]);
     }
 

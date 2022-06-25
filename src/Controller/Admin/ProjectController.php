@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/admin/project")
@@ -18,8 +19,9 @@ class ProjectController extends AdminController
 {
     private ProjectRepository $projectRepository;
 
-    public function __construct(ProjectRepository $projectRepository)
+    public function __construct(TranslatorInterface $translator, ProjectRepository $projectRepository)
     {
+        parent::__construct($translator);
         $this->projectRepository = $projectRepository;
     }
 
@@ -29,7 +31,7 @@ class ProjectController extends AdminController
     public function index(): Response
     {
         return $this->render('admin/project/index.html.twig', [
-            'page_title' => 'Projektek listája',
+            'page_title' => $this->translator->trans('title.project.list', [], 'admin'),
             'projects' => $this->projectRepository->findAll(),
         ]);
     }
@@ -50,20 +52,9 @@ class ProjectController extends AdminController
         }
 
         return $this->renderForm('admin/project/new.html.twig', [
-            'page_title' => 'Új projekt létrehozása',
+            'page_title' => $this->translator->trans('title.project.add', [], 'admin'),
             'project' => $project,
             'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_admin_project_show", methods={"GET"})
-     */
-    public function show(Project $project): Response
-    {
-        return $this->render('admin/project/show.html.twig', [
-            'page_title' => 'Projekt adatok',
-            'project' => $project,
         ]);
     }
 
@@ -83,7 +74,7 @@ class ProjectController extends AdminController
         }
 
         return $this->renderForm('admin/project/edit.html.twig', [
-            'page_title' => 'Projekt szerkesztése',
+            'page_title' => $this->translator->trans('title.project.edit', [], 'admin') . " - " . $project->getTitle(),
             'project' => $project,
             'form' => $form,
         ]);
@@ -99,5 +90,10 @@ class ProjectController extends AdminController
         }
 
         return $this->redirectToRoute('app_admin_project_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    public function listEpisodes()
+    {
+
     }
 }

@@ -1,7 +1,11 @@
 {% extends 'admin/dashboard.html.twig' %}
 
 {% block body %}
-    {{ include('admin/fansub_member/_form.html.twig', {'button_label': 'Update'}) }}
-    <a href="{{ path('app_admin_fansub_member_index') }}">back to list</a>
-    {{ include('admin/fansub_member/_delete_form.html.twig') }}
+    <a class="btn btn-warning btn-icon-split" href="{{ path('app_admin_fansub_member_index') }}">
+        <span class="icon text-white-50">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </span>
+        <span class="text">{{ 'button.back_to_list'|trans([], 'admin') }}</span>
+    </a>
+    {{ include('admin/_form.html.twig', {'button_label': 'button.update'}) }}
 {% endblock %}

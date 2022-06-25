@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/admin/project-type")
@@ -17,8 +18,9 @@ class ProjectTypeController extends AdminController
 {
     private ProjectTypeRepository $projectTypeRepository;
 
-    public function __construct(ProjectTypeRepository $projectTypeRepository)
+    public function __construct(TranslatorInterface $translator, ProjectTypeRepository $projectTypeRepository)
     {
+        parent::__construct($translator);
         $this->projectTypeRepository = $projectTypeRepository;
     }
 
@@ -28,7 +30,7 @@ class ProjectTypeController extends AdminController
     public function index(): Response
     {
         return $this->render('admin/project_type/index.html.twig', [
-            'page_title' => 'Besorolás lista',
+            'page_title' => $this->translator->trans('title.project.type.list', [], 'admin'),
             'project_types' => $this->projectTypeRepository->findAll(),
         ]);
     }
@@ -49,20 +51,9 @@ class ProjectTypeController extends AdminController
         }
 
         return $this->renderForm('admin/project_type/new.html.twig', [
-            'page_title' => 'Új besorolás hozzáadása',
+            'page_title' => $this->translator->trans('title.project.type.add', [], 'admin'),
             'project_type' => $projectType,
             'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_admin_project_type_show", methods={"GET"})
-     */
-    public function show(ProjectType $projectType): Response
-    {
-        return $this->render('admin/project_type/show.html.twig', [
-            'page_title' => 'Besorolás adatai',
-            'project_type' => $projectType,
         ]);
     }
 
@@ -81,7 +72,7 @@ class ProjectTypeController extends AdminController
         }
 
         return $this->renderForm('admin/project_type/edit.html.twig', [
-            'page_title' => 'Besorolás szerkesztése',
+            'page_title' => $this->translator->trans('title.project.type.edit', [], 'admin') . " - " . $projectType->getName(),
             'project_type' => $projectType,
             'form' => $form,
         ]);

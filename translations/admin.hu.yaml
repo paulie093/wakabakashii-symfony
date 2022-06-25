@@ -1,4 +1,120 @@
 user:
     login: Bejelentkezés
+    logout: Kijelentkezés
     name: Felhasználónév
     password: Jelszaft
+
+homepage: Főoldal
+
+message:
+    no_records: Nem található rekord.
+    delete:
+        confirm: Biztosan törölni akarod ezt a rekordot?
+
+column:
+    id: ID
+    title: Cím
+    title.jap: Japán cím
+    title.jap.romaji: Romaji cím
+    title.jap.kanji: Kanji cím
+    content: Tartalom
+    created_at: Létrehozva
+    updated_at: Frissítve
+    upload_date: Feltöltés dátuma
+    actions: Műveletek
+    related_project: Kapcsolódó projekt
+    author: Szerkesztő
+    token: Token
+    name:
+        short: Rövidítés
+        nick: Becenév
+        name: Név
+    url:
+        embed: Beágyazandó URL
+        website: Weboldal URL
+        download: Letöltés linkje
+    year: Vetítés éve
+    episodes: Epizódok száma
+    episode_number: Epizód
+    official_url: Hivatalos oldal URL
+    ann_id: Anime News Network ID
+    anidb_id: AniDB ID
+    mal_id: MyAnimeList ID
+    resolution: Videós kiadás felbontása
+    online_embed: Online szolgáltató
+    project:
+        video_quality: Videóminőség
+        status: Projekt státusza
+        type: Besorolás
+    fansub:
+        team: Fansub csapat
+        translator: Fordító(k)
+        tlc: Lektoráló(k)
+        timer: Időzítő(k)
+        typesetter: Formázó(k)
+        encoder: Videó kódoló(k)
+    roles: Szerepkörök
+
+button:
+    add: Új rekord hozzáadása
+    edit: Szerkesztés
+    save: Mentés
+    update: Frissítés
+    delete: Törlés
+    back_to_list: Vissza a listára
+
+title:
+    news:
+        category: Hírek
+        list: Hír lista
+        add: Új hír hozzáadása
+        edit: Hír szerkesztése
+
+    project:
+        category: Projektek
+        list: Projekt lista
+        add: Új projekt hozzáadása
+        edit: Projekt szerkesztése
+
+        episode:
+            list: Epizódok listája
+            add: Új epizód hozzáadása
+            edit: Epizód szerkesztése
+
+        status:
+            list: Projekt státusz lista
+            add: Új státusz hozzáadása
+            edit: Státusz szerkesztése
+
+        type:
+            list: Besorolás lista
+            add: Új besorolás hozzáadása
+            edit: Besorolás szerkesztése
+
+        video_quality:
+            list: Videóminőség lista
+            add: Új videóminőség érték felvitele
+            edit: Videóminőség rekord szerkesztése
+
+    online:
+        list: Online szolgáltató lista
+        add: Új online szolgáltató felvétele
+        edit: Online szolgáltató szerkesztése
+
+    fansub:
+        category: Fansub adatok
+        team:
+            list: Fansub csapatok listája
+            add: Új fansub csapat hozzáadása
+            edit: Fansub csapat szerkesztése
+        member:
+            list: Fansub csapattagok listája
+            add: Új fansub csapattag hozzáadása
+            edit: Fansub csapattag szerkesztése
+
+    administration:
+        category: Adminisztráció
+        users:
+            list: Felhasználók listája
+            add: Új felhasználó felvitele
+            edit: Felhasználó szerkesztése

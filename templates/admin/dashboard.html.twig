@@ -21,7 +21,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('app_admin_index') }}">
                     <i class="fa fa-home"></i>
-                    <span>Főoldal</span></a>
+                    <span>{{ 'homepage'|trans([], 'admin') }}</span></a>
             </li>
 
             <!-- Divider -->
@@ -29,13 +29,13 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Hírek
+                {{ 'title.news.category'|trans([], 'admin') }}
             </div>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_admin_news_index') }}">
                     <i class="fa fa-newspaper-o"></i>
-                    <span>Hír lista</span></a>
+                    <span>{{ 'title.news.list'|trans([], 'admin') }}</span></a>
             </li>
 
             <!-- Divider -->
@@ -43,29 +43,29 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Projektek
+                {{ 'title.project.category'|trans([], 'admin') }}
             </div>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_admin_project_index') }}">
                     <i class="fa fa-file-video-o"></i>
-                    <span>Projekt lista</span></a>
+                    <span>{{ 'title.project.list'|trans([], 'admin') }}</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_admin_project_status_index') }}">
-                    <span>Státusz lista</span></a>
+                    <span>{{ 'title.project.status.list'|trans([], 'admin') }}</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_admin_project_type_index') }}">
-                    <span>Besorolás lista</span></a>
+                    <span>{{ 'title.project.type.list'|trans([], 'admin') }}</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_admin_project_video_quality_index') }}">
-                    <span>Videóminőség lista</span></a>
+                    <span>{{ 'title.project.video_quality.list'|trans([], 'admin') }}</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_admin_online_host_index') }}">
-                    <span>Online szolgáltató lista</span></a>
+                    <span>{{ 'title.online.list'|trans([], 'admin') }}</span></a>
             </li>
 
             <!-- Divider -->
@@ -73,16 +73,16 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Fansub adatok
+                {{ 'title.fansub.category'|trans([], 'admin') }}
             </div>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_admin_fansub_team_index') }}">
-                    <span>Fansub csapatok listája</span></a>
+                    <span>{{ 'title.fansub.team.list'|trans([], 'admin') }}</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_admin_fansub_member_index') }}">
-                    <span>Fansub csapattagok listája</span></a>
+                    <span>{{ 'title.fansub.member.list'|trans([], 'admin') }}</span></a>
             </li>
 
             <!-- Divider -->
@@ -90,30 +90,28 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Adminisztráció
+                {{ 'title.administration.category'|trans([], 'admin') }}
             </div>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_admin_user_index') }}">
-                    <span>Felhasználók listája</span></a>
+                    <span>{{ 'title.administration.users.list'|trans([], 'admin') }}</span></a>
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+            <hr class="sidebar-divider">
 
             <!-- Sidebar Toggler (Sidebar) -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('admin_logout') }}">
                     <i class="fa fa-sign-out"></i>
-                    <span>Kijelentkezés</span></a>
+                    <span>{{ 'user.logout'|trans([], 'admin') }}</span></a>
             </li>
-
         </ul>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
                 <!-- Begin Page Content -->
@@ -125,32 +123,13 @@
                         </h1>
                     </div>
                     <!-- Content Row -->
-                    <div class="row">
-                        {% block body %}{% endblock %}
-                    </div>
+                    {% block body %}{% endblock %}
                     <!-- /.container-fluid -->
                 </div>
                 <!-- End of Main Content -->
-
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Az oldalt készítette: waka (2022)</span>
-                        </div>
-                    </div>
-                </footer>
-                <!-- End of Footer -->
-
             </div>
             <!-- End of Content Wrapper -->
-
         </div>
         <!-- End of Page Wrapper -->
-
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fa fa-angle-up"></i>
-        </a>
     </body>
 {% endblock %}

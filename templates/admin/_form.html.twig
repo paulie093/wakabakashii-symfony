@@ -1,0 +1,12 @@
+<div class="card mt-4 card-body shadow-sm">
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            </span>
+            <span class="text">{{ button_label|default('button.save')|trans([], 'admin') }}</span>
+        </button>
+    {{ form_end(form) }}
+</div>

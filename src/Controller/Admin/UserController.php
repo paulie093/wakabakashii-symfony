@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/admin/user")
@@ -20,9 +21,11 @@ class UserController extends AdminController
     private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(
+        TranslatorInterface $translator,
         UserRepository $userRepository,
         UserPasswordHasherInterface $passwordHasher
     ) {
+        parent::__construct($translator);
         $this->userRepository = $userRepository;
         $this->passwordHasher = $passwordHasher;
     }
@@ -33,7 +36,7 @@ class UserController extends AdminController
     public function index(): Response
     {
         return $this->render('admin/user/index.html.twig', [
-            'page_title' => 'Felhasználó lista',
+            'page_title' => $this->translator->trans('title.administration.users.list', [], 'admin'),
             'users' => $this->userRepository->findAll(),
         ]);
     }
@@ -57,20 +60,9 @@ class UserController extends AdminController
         }
 
         return $this->renderForm('admin/user/new.html.twig', [
-            'page_title' => 'Új felhasználó hozzáadása',
+            'page_title' => $this->translator->trans('title.administration.users.add', [], 'admin'),
             'user' => $user,
             'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_admin_user_show", methods={"GET"})
-     */
-    public function show(User $user): Response
-    {
-        return $this->render('admin/user/show.html.twig', [
-            'page_title' => 'Felhasználó adatai',
-            'user' => $user,
         ]);
     }
 
@@ -94,7 +86,7 @@ class UserController extends AdminController
         }
 
         return $this->renderForm('admin/user/edit.html.twig', [
-            'page_title' => 'Felhasználó szerkesztése',
+            'page_title' => $this->translator->trans('title.administration.users.edit', [], 'admin') . " - " . $user->getUserIdentifier(),
             'user' => $user,
             'form' => $form,
         ]);

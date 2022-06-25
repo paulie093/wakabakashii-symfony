@@ -1,43 +1,56 @@
 {% extends 'admin/dashboard.html.twig' %}
 
 {% block body %}
-    <table class="table">
-        <thead>
+    <table class="table table-hover">
+        <thead class="text-gray-900">
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>TitleJapRomaji</th>
-                <th>TitleJapKanji</th>
-                <th>EpisodeNumber</th>
-                <th>UploadDate</th>
-                <th>DownloadUrl</th>
-                <th>OnlineEmbedId</th>
-                <th>actions</th>
+                <th scope="col">{{ 'column.id'|trans([], 'admin') }}</th>
+                <th scope="col">{{ 'column.title'|trans([], 'admin') }}</th>
+                <th scope="col">{{ 'column.title.jap.romaji'|trans([], 'admin') }}</th>
+                <th scope="col">{{ 'column.title.jap.kanji'|trans([], 'admin') }}</th>
+                <th scope="col">{{ 'column.episode_number'|trans([], 'admin') }}</th>
+                <th scope="col">{{ 'column.upload_date'|trans([], 'admin') }}</th>
+                <th scope="col">{{ 'column.url.download'|trans([], 'admin') }}</th>
+                <th scope="col">{{ 'column.online_embed'|trans([], 'admin') }}</th>
+                <th scope="col">{{ 'column.actions'|trans([], 'admin') }}</th>
             </tr>
         </thead>
         <tbody>
         {% for episode in episodes %}
             <tr>
-                <td>{{ episode.id }}</td>
-                <td>{{ episode.title }}</td>
-                <td>{{ episode.titleJapRomaji }}</td>
-                <td>{{ episode.titleJapKanji }}</td>
-                <td>{{ episode.episodeNumber }}</td>
-                <td>{{ episode.uploadDate ? episode.uploadDate|date('Y-m-d') : '' }}</td>
-                <td>{{ episode.downloadUrl }}</td>
-                <td>{{ episode.onlineEmbedId }}</td>
-                <td>
-                    <a href="{{ path('app_admin_project_episode_show', {'id': episode.id}) }}">show</a>
-                    <a href="{{ path('app_admin_project_episode_edit', {'id': episode.id}) }}">edit</a>
+                <td class="align-middle">{{ episode.id }}</td>
+                <td class="align-middle">{{ episode.title }}</td>
+                <td class="align-middle">{{ episode.titleJapRomaji }}</td>
+                <td class="align-middle">{{ episode.titleJapKanji }}</td>
+                <td class="align-middle">{{ episode.episodeNumber }}</td>
+                <td class="align-middle">{{ episode.uploadDate ? episode.uploadDate|date('Y.m.d') : '' }}</td>
+                <td class="align-middle">{{ episode.downloadUrl }}</td>
+                <td class="align-middle">{{ episode.onlineEmbedId }}</td>
+                <td class="align-middle">
+                    <a class="btn btn-primary btn-icon-split btn-sm" href="{{ path('app_admin_project_episode_edit', {'id': episode.id}) }}">
+                        <span class="icon text-white-50">
+                            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                        </span>
+                        <span class="text">{{ 'button.edit'|trans([], 'admin') }}</span>
+                    </a>
+                    <form class="d-inline" method="post" action="{{ path('app_admin_project_episode_delete', {'id': episode.id}) }}" onsubmit="return confirm('{{ 'message.delete.confirm'|trans([], 'admin') }}');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ episode.id) }}">
+                        <button class="btn btn-danger btn-icon-split btn-sm">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </span>
+                            <span class="text">{{ 'button.delete'|trans([], 'admin') }}</span>
+                        </button>
+                    </form>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">no records found</td>
+                <td class="align-middle" colspan="9">{{ 'message.no_records'|trans([], 'admin') }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_project_episode_new') }}">Create new</a>
+    <a href="{{ path('app_admin_project_episode_new') }}">{{ 'button.add'|trans([], 'admin') }}</a>
 {% endblock %}

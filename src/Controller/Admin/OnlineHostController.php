@@ -10,16 +10,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @Route("/admin/online/host")
+ * @Route("/admin/online-host")
  */
 class OnlineHostController extends AdminController
 {
     private OnlineHostRepository $onlineHostRepository;
 
-    public function __construct(OnlineHostRepository $onlineHostRepository)
+    public function __construct(TranslatorInterface $translator, OnlineHostRepository $onlineHostRepository)
     {
+        parent::__construct($translator);
         $this->onlineHostRepository = $onlineHostRepository;
     }
 
@@ -29,7 +31,7 @@ class OnlineHostController extends AdminController
     public function index(): Response
     {
         return $this->render('admin/online_host/index.html.twig', [
-            'page_title' => 'Online szolgáltató lista',
+            'page_title' => $this->translator->trans('title.online.list', [], 'admin'),
             'online_hosts' => $this->onlineHostRepository->findAll(),
         ]);
     }
@@ -50,20 +52,9 @@ class OnlineHostController extends AdminController
         }
 
         return $this->renderForm('admin/online_host/new.html.twig', [
-            'page_title' => 'Új online szolgáltató hozzáadása',
+            'page_title' => $this->translator->trans('title.online.add', [], 'admin'),
             'online_host' => $onlineHost,
             'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_admin_online_host_show", methods={"GET"})
-     */
-    public function show(OnlineHost $onlineHost): Response
-    {
-        return $this->render('admin/online_host/show.html.twig', [
-            'page_title' => 'Online szolgáltató adatai',
-            'online_host' => $onlineHost,
         ]);
     }
 
@@ -82,7 +73,7 @@ class OnlineHostController extends AdminController
         }
 
         return $this->renderForm('admin/online_host/edit.html.twig', [
-            'page_title' => 'Online szolgáltató szerkesztése',
+            'page_title' => $this->translator->trans('title.online.edit', [], 'admin') . " - " . $onlineHost->getName(),
             'online_host' => $onlineHost,
             'form' => $form,
         ]);

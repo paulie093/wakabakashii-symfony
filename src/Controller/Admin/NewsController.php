@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/admin/news")
@@ -17,8 +18,9 @@ class NewsController extends AdminController
 {
     protected NewsRepository $newsRepository;
 
-    public function __construct(NewsRepository $newsRepository)
+    public function __construct(TranslatorInterface $translator, NewsRepository $newsRepository)
     {
+        parent::__construct($translator);
         $this->newsRepository = $newsRepository;
     }
 
@@ -28,7 +30,7 @@ class NewsController extends AdminController
     public function index(): Response
     {
         return $this->render('admin/news/index.html.twig', [
-            'page_title' => 'Hír lista',
+            'page_title' => $this->translator->trans('title.news.list', [], 'admin'),
             'news' => $this->newsRepository->findAll(),
         ]);
     }
@@ -49,20 +51,9 @@ class NewsController extends AdminController
         }
 
         return $this->renderForm('admin/news/new.html.twig', [
-            'page_title' => 'Új hír létrehozása',
+            'page_title' => $this->translator->trans('title.news.add', [], 'admin'),
             'news' => $news,
             'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_admin_news_show", methods={"GET"})
-     */
-    public function show(News $news): Response
-    {
-        return $this->render('admin/news/show.html.twig', [
-            'page_title' => 'Hír adatai',
-            'news' => $news,
         ]);
     }
 
@@ -81,7 +72,7 @@ class NewsController extends AdminController
         }
 
         return $this->renderForm('admin/news/edit.html.twig', [
-            'page_title' => 'Hír szerkesztése',
+            'page_title' => $this->translator->trans('title.news.edit', [], 'admin') . " - " . $news->getTitle(),
             'news' => $news,
             'form' => $form,
         ]);

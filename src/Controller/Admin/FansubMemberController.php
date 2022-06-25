@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/admin/fansub-member")
@@ -17,8 +18,9 @@ class FansubMemberController extends AdminController
 {
     private MemberRepository $memberRepository;
 
-    public function __construct(MemberRepository $memberRepository)
+    public function __construct(TranslatorInterface $translator, MemberRepository $memberRepository)
     {
+        parent::__construct($translator);
         $this->memberRepository = $memberRepository;
     }
 
@@ -28,7 +30,7 @@ class FansubMemberController extends AdminController
     public function index(): Response
     {
         return $this->render('admin/fansub_member/index.html.twig', [
-            'page_title' => 'Fansub csapattag lista',
+            'page_title' => $this->translator->trans('title.fansub.member.list', [], 'admin'),
             'members' => $this->memberRepository->findAll(),
         ]);
     }
@@ -49,20 +51,9 @@ class FansubMemberController extends AdminController
         }
 
         return $this->renderForm('admin/fansub_member/new.html.twig', [
-            'page_title' => 'Új fansub csapattag hozzáadása',
+            'page_title' => $this->translator->trans('title.fansub.member.add', [], 'admin'),
             'member' => $member,
             'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_admin_fansub_member_show", methods={"GET"})
-     */
-    public function show(Member $member): Response
-    {
-        return $this->render('admin/fansub_member/show.html.twig', [
-            'page_title' => 'Fansub csapattag adatai',
-            'member' => $member,
         ]);
     }
 
@@ -81,7 +72,7 @@ class FansubMemberController extends AdminController
         }
 
         return $this->renderForm('admin/fansub_member/edit.html.twig', [
-            'page_title' => 'Fansub csapattag szerkesztése',
+            'page_title' => $this->translator->trans('title.fansub.member.edit', [], 'admin') . " - " . $member->getNickname(),
             'member' => $member,
             'form' => $form,
         ]);

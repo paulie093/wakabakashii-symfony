@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/admin/fansub-team")
@@ -18,8 +19,9 @@ class FansubTeamController extends AdminController
 {
     private TeamRepository $teamRepository;
 
-    public function __construct(TeamRepository $teamRepository)
+    public function __construct(TranslatorInterface $translator, TeamRepository $teamRepository)
     {
+        parent::__construct($translator);
         $this->teamRepository = $teamRepository;
     }
 
@@ -29,7 +31,7 @@ class FansubTeamController extends AdminController
     public function index(): Response
     {
         return $this->render('admin/fansub_team/index.html.twig', [
-            'page_title' => 'Fansub csapat lista',
+            'page_title' => $this->translator->trans('title.fansub.team.list', [], 'admin'),
             'teams' => $this->teamRepository->findAll(),
         ]);
     }
@@ -50,20 +52,9 @@ class FansubTeamController extends AdminController
         }
 
         return $this->renderForm('admin/fansub_team/new.html.twig', [
-            'page_title' => 'Új fansub csapat hozzáadása',
+            'page_title' => $this->translator->trans('title.fansub.team.add', [], 'admin'),
             'team' => $team,
             'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_admin_fansub_team_show", methods={"GET"})
-     */
-    public function show(Team $team): Response
-    {
-        return $this->render('admin/fansub_team/show.html.twig', [
-            'page_title' => 'Fansub csapat adatai',
-            'team' => $team,
         ]);
     }
 
@@ -82,7 +73,7 @@ class FansubTeamController extends AdminController
         }
 
         return $this->renderForm('admin/fansub_team/edit.html.twig', [
-            'page_title' => 'Fansub csapat szerkesztése',
+            'page_title' => $this->translator->trans('title.fansub.team.edit', [], 'admin') . " - " . $team->getName(),
             'team' => $team,
             'form' => $form,
         ]);

@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/admin/project-status")
@@ -17,8 +18,9 @@ class ProjectStatusController extends AdminController
 {
     private ProjectStatusRepository $projectStatusRepository;
 
-    public function __construct(ProjectStatusRepository $projectStatusRepository)
+    public function __construct(TranslatorInterface $translator, ProjectStatusRepository $projectStatusRepository)
     {
+        parent::__construct($translator);
         $this->projectStatusRepository = $projectStatusRepository;
     }
 
@@ -28,7 +30,7 @@ class ProjectStatusController extends AdminController
     public function index(): Response
     {
         return $this->render('admin/project_status/index.html.twig', [
-            'page_title' => 'Státusz lista',
+            'page_title' => $this->translator->trans('title.project.status.list', [], 'admin'),
             'project_statuses' => $this->projectStatusRepository->findAll(),
         ]);
     }
@@ -49,20 +51,9 @@ class ProjectStatusController extends AdminController
         }
 
         return $this->renderForm('admin/project_status/new.html.twig', [
-            'page_title' => 'Új státusz hozzáadása',
+            'page_title' => $this->translator->trans('title.project.status.add', [], 'admin'),
             'project_status' => $projectStatus,
             'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_admin_project_status_show", methods={"GET"})
-     */
-    public function show(ProjectStatus $projectStatus): Response
-    {
-        return $this->render('admin/project_status/show.html.twig', [
-            'page_title' => 'Státusz adatai',
-            'project_status' => $projectStatus,
         ]);
     }
 
@@ -81,7 +72,7 @@ class ProjectStatusController extends AdminController
         }
 
         return $this->renderForm('admin/project_status/edit.html.twig', [
-            'page_title' => 'Státusz szerkesztése',
+            'page_title' => $this->translator->trans('title.project.status.edit', [], 'admin') . " - " . $projectStatus->getName(),
             'project_status' => $projectStatus,
             'form' => $form,
         ]);

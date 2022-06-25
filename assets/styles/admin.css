@@ -6,3 +6,7 @@ footer {
     width: 100%;
     bottom: 0;
 }
+
+table.table {
+    background-color: white;
+}

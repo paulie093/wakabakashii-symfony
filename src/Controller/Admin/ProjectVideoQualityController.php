@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/admin/project-video-quality")
@@ -17,8 +18,9 @@ class ProjectVideoQualityController extends AdminController
 {
     private ProjectVideoQualityRepository $projectVideoQualityRepository;
 
-    public function __construct(ProjectVideoQualityRepository $projectVideoQualityRepository)
+    public function __construct(TranslatorInterface $translator, ProjectVideoQualityRepository $projectVideoQualityRepository)
     {
+        parent::__construct($translator);
         $this->projectVideoQualityRepository = $projectVideoQualityRepository;
     }
 
@@ -28,7 +30,7 @@ class ProjectVideoQualityController extends AdminController
     public function index(): Response
     {
         return $this->render('admin/project_video_quality/index.html.twig', [
-            'page_title' => 'Videóminőség lista',
+            'page_title' => $this->translator->trans('title.project.video_quality.list', [], 'admin'),
             'project_video_qualities' => $this->projectVideoQualityRepository->findAll(),
         ]);
     }
@@ -49,20 +51,9 @@ class ProjectVideoQualityController extends AdminController
         }
 
         return $this->renderForm('admin/project_video_quality/new.html.twig', [
-            'page_title' => 'Új videóminőség hozzáadása',
+            'page_title' => $this->translator->trans('title.project.video_quality.add', [], 'admin'),
             'project_video_quality' => $projectVideoQuality,
             'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_admin_project_video_quality_show", methods={"GET"})
-     */
-    public function show(ProjectVideoQuality $projectVideoQuality): Response
-    {
-        return $this->render('admin/project_video_quality/show.html.twig', [
-            'page_title' => 'Videóminőség adatok',
-            'project_video_quality' => $projectVideoQuality,
         ]);
     }
 
@@ -81,7 +72,7 @@ class ProjectVideoQualityController extends AdminController
         }
 
         return $this->renderForm('admin/project_video_quality/edit.html.twig', [
-            'page_title' => 'Videóminőség szerkesztése',
+            'page_title' => $this->translator->trans('title.project.video_quality.edit', [], 'admin') . " - " . $projectVideoQuality->getName(),
             'project_video_quality' => $projectVideoQuality,
             'form' => $form,
         ]);

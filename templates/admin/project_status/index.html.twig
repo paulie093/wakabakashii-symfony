@@ -1,7 +1,13 @@
 {% extends 'admin/dashboard.html.twig' %}
 
 {% block body %}
-    <table class="table table-hover">
+    <a class="btn btn-success btn-icon-split" href="{{ path('app_admin_project_status_new') }}">
+        <span class="icon text-white-50">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </span>
+        <span class="text">{{ 'button.add'|trans([], 'admin') }}</span>
+    </a>
+    <table class="table table-hover mt-4">
         <thead class="text-gray-900">
             <tr>
                 <th scope="col">{{ 'column.id'|trans([], 'admin') }}</th>
@@ -41,12 +47,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a class="btn btn-success btn-icon-split" href="{{ path('app_admin_project_status_new') }}">
-        <span class="icon text-white-50">
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-        </span>
-        <span class="text">{{ 'button.add'|trans([], 'admin') }}</span>
-    </a>
-
 {% endblock %}

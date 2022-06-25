@@ -1,7 +1,7 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /
+    controller: App\Controller\NewsController::index
 
 admin_logout:
-  path: /admin/logout
-  methods: GET
+    path: /admin/logout
+    methods: GET

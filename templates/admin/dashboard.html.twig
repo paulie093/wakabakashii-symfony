@@ -1,5 +1,7 @@
 {% extends 'admin/base.html.twig' %}
 
+{% set currentPath = app.request.get('_route') %}
+
 {% block adminBody %}
     <body id="page-top">
 
@@ -18,10 +20,11 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item {% if currentPath == 'app_admin_index' %}active{% endif %}">
                 <a class="nav-link" href="{{ path('app_admin_index') }}">
                     <i class="fa fa-home"></i>
-                    <span>{{ 'homepage'|trans([], 'admin') }}</span></a>
+                    <span>{{ 'homepage'|trans([], 'admin') }}</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -32,10 +35,11 @@
                 {{ 'title.news.category'|trans([], 'admin') }}
             </div>
 
-            <li class="nav-item">
+            <li class="nav-item {% if currentPath starts with 'app_admin_news_' %}active{% endif %}">
                 <a class="nav-link" href="{{ path('app_admin_news_index') }}">
                     <i class="fa fa-newspaper-o"></i>
-                    <span>{{ 'title.news.list'|trans([], 'admin') }}</span></a>
+                    <span>{{ 'title.news.list'|trans([], 'admin') }}</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -46,26 +50,30 @@
                 {{ 'title.project.category'|trans([], 'admin') }}
             </div>
 
-            <li class="nav-item">
+            <li class="nav-item {% if currentPath in ['app_admin_project_index','app_admin_project_new','app_admin_project_edit'] %}active{% endif %}">
                 <a class="nav-link" href="{{ path('app_admin_project_index') }}">
-                    <i class="fa fa-file-video-o"></i>
-                    <span>{{ 'title.project.list'|trans([], 'admin') }}</span></a>
+                    <span>{{ 'title.project.list'|trans([], 'admin') }}</span>
+                </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if currentPath starts with 'app_admin_project_status_' %}active{% endif %}">
                 <a class="nav-link" href="{{ path('app_admin_project_status_index') }}">
-                    <span>{{ 'title.project.status.list'|trans([], 'admin') }}</span></a>
+                    <span>{{ 'title.project.status.list'|trans([], 'admin') }}</span>
+                </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if currentPath starts with 'app_admin_project_type_' %}active{% endif %}">
                 <a class="nav-link" href="{{ path('app_admin_project_type_index') }}">
-                    <span>{{ 'title.project.type.list'|trans([], 'admin') }}</span></a>
+                    <span>{{ 'title.project.type.list'|trans([], 'admin') }}</span>
+                </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if currentPath starts with 'app_admin_project_video_quality_' %}active{% endif %}">
                 <a class="nav-link" href="{{ path('app_admin_project_video_quality_index') }}">
-                    <span>{{ 'title.project.video_quality.list'|trans([], 'admin') }}</span></a>
+                    <span>{{ 'title.project.video_quality.list'|trans([], 'admin') }}</span>
+                </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if currentPath starts with 'app_admin_online_host_' %}active{% endif %}">
                 <a class="nav-link" href="{{ path('app_admin_online_host_index') }}">
-                    <span>{{ 'title.online.list'|trans([], 'admin') }}</span></a>
+                    <span>{{ 'title.online.list'|trans([], 'admin') }}</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -76,11 +84,11 @@
                 {{ 'title.fansub.category'|trans([], 'admin') }}
             </div>
 
-            <li class="nav-item">
+            <li class="nav-item {% if currentPath starts with 'app_admin_fansub_team_' %}active{% endif %}">
                 <a class="nav-link" href="{{ path('app_admin_fansub_team_index') }}">
                     <span>{{ 'title.fansub.team.list'|trans([], 'admin') }}</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if currentPath starts with 'app_admin_fansub_member_' %}active{% endif %}">
                 <a class="nav-link" href="{{ path('app_admin_fansub_member_index') }}">
                     <span>{{ 'title.fansub.member.list'|trans([], 'admin') }}</span></a>
             </li>
@@ -93,7 +101,7 @@
                 {{ 'title.administration.category'|trans([], 'admin') }}
             </div>
 
-            <li class="nav-item">
+            <li class="nav-item {% if currentPath starts with 'app_admin_user_' %}active{% endif %}">
                 <a class="nav-link" href="{{ path('app_admin_user_index') }}">
                     <span>{{ 'title.administration.users.list'|trans([], 'admin') }}</span></a>
             </li>

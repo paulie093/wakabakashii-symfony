@@ -6,14 +6,15 @@ use App\Entity\Project\OnlineHost;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class OnlineHostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('url')
+            ->add('name', null, ['label' => new TranslatableMessage('column.name.name', [], 'admin')])
+            ->add('url', null, ['label' => new TranslatableMessage('column.url.embed', [], 'admin')])
         ;
     }
 

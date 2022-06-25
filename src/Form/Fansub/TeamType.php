@@ -6,17 +6,17 @@ use App\Entity\Fansub\Team;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class TeamType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('token')
-            ->add('shortName')
-            ->add('websiteUrl')
-            ->add('relatedProjects')
+            ->add('name', null, ['label' => new TranslatableMessage('column.name.name', [], 'admin')])
+            ->add('token', null, ['label' => new TranslatableMessage('column.token', [], 'admin')])
+            ->add('shortName', null, ['label' => new TranslatableMessage('column.name.short', [], 'admin')])
+            ->add('websiteUrl', null, ['label' => new TranslatableMessage('column.url.website', [], 'admin')])
         ;
     }
 

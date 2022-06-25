@@ -3,6 +3,7 @@
 namespace App\Repository\Project;
 
 use App\Entity\Project\Episode;
+use App\Entity\Project\Project;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,28 +40,12 @@ class EpisodeRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Episode[] Returns an array of Episode objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findByProject(Project $project): array
+    {
+        $queryBuilder = $this->createQueryBuilder('episode')
+            ->innerJoin('episode.project', 'project', 'WITH', 'project.id = :projectId')
+            ->setParameter('projectId', $project->getId());
 
-//    public function findOneBySomeField($value): ?Episode
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User\User;
 use App\Form\User\UserType;
 use App\Repository\User\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -43,6 +43,7 @@ class UserController extends AdminController
 
     /**
      * @Route("/new", name="app_admin_user_new", methods={"GET", "POST"})
+     * @IsGranted("ROLE_SUPER_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -68,6 +69,7 @@ class UserController extends AdminController
 
     /**
      * @Route("/{id}/edit", name="app_admin_user_edit", methods={"GET", "POST"})
+     * @IsGranted("ROLE_SUPER_ADMIN")
      */
     public function edit(Request $request, User $user): Response
     {

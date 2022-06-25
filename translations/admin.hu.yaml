@@ -33,13 +33,16 @@ column:
         embed: Beágyazandó URL
         website: Weboldal URL
         download: Letöltés linkje
+        official: Hivatalos oldal URL
     year: Vetítés éve
+    year.start: Vetítés kezdete (év)
+    year.end: Vetítés vége (év)
     episodes: Epizódok száma
     episode_number: Epizód
-    official_url: Hivatalos oldal URL
     ann_id: Anime News Network ID
     anidb_id: AniDB ID
     mal_id: MyAnimeList ID
+    online_embed_id: Beágyazandó videó ID
     resolution: Videós kiadás felbontása
     online_embed: Online szolgáltató
     project:
@@ -62,6 +65,7 @@ button:
     update: Frissítés
     delete: Törlés
     back_to_list: Vissza a listára
+    view_episodes: Epizódok
 
 title:
     news:

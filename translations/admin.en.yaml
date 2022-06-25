@@ -33,12 +33,15 @@ column:
         embed: Embed URL
         website: Website URL
         download: Download URL
+        official: Official Site URL
     year: Air Date
+    year.start: Air Start
+    year.end: Air End
     episode_number: Number of Episodes
-    official_url: Official Site URL
     ann_id: Anime News Network ID
     anidb_id: AniDB ID
     mal_id: MyAnimeList ID
+    online_embed_id: Online Embed ID
     resolution: Release Resolution
     online_embed: Online Host
     project:
@@ -61,6 +64,7 @@ button:
     update: Update
     delete: Delete
     back_to_list: Back To List
+    view_episodes: Episodes
 
 title:
     news:

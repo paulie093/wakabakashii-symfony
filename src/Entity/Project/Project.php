@@ -115,6 +115,11 @@ class Project
      */
     private $episodes;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $coverImage;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -369,6 +374,18 @@ class Project
                 $episode->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCoverImage(): ?string
+    {
+        return $this->coverImage;
+    }
+
+    public function setCoverImage($coverImage): self
+    {
+        $this->coverImage = $coverImage;
 
         return $this;
     }

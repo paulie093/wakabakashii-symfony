@@ -57,6 +57,7 @@ column:
         typesetter: Formázó(k)
         encoder: Videó kódoló(k)
     roles: Szerepkörök
+    cover_image: Borítókép
 
 button:
     add: Új rekord hozzáadása

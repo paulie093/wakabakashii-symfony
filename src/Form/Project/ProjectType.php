@@ -5,9 +5,11 @@ namespace App\Form\Project;
 use App\Entity\Project\Project;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Component\Validator\Constraints\File;
 
 class ProjectType extends AbstractType
 {
@@ -29,6 +31,16 @@ class ProjectType extends AbstractType
             ->add('projectStatus', null, ['label' => new TranslatableMessage('column.project.status', [], 'admin')])
             ->add('projectType', null, ['label' => new TranslatableMessage('column.project.type', [], 'admin')])
             ->add('fansubTeam', null, ['label' => new TranslatableMessage('column.fansub.team', [], 'admin')])
+            ->add('coverImage', FileType::class, [
+                'mapped' => false,
+                'label' => new TranslatableMessage('column.cover_image', [], 'admin'),
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => ['image/png'],
+                    ])
+                ]
+            ])
         ;
     }
 

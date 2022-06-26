@@ -8,8 +8,12 @@ use App\Form\Project\EpisodeType;
 use App\Form\Project\ProjectType;
 use App\Repository\Project\EpisodeRepository;
 use App\Repository\Project\ProjectRepository;
+use App\Service\FileUploader;
 use DateTimeImmutable;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,15 +26,18 @@ class ProjectController extends AdminController
 {
     private ProjectRepository $projectRepository;
     private EpisodeRepository $episodeRepository;
+    private FileUploader $fileUploader;
 
     public function __construct(
         TranslatorInterface $translator,
         ProjectRepository $projectRepository,
-        EpisodeRepository $episodeRepository
+        EpisodeRepository $episodeRepository,
+        FileUploader $fileUploader
     ) {
         parent::__construct($translator);
         $this->projectRepository = $projectRepository;
         $this->episodeRepository = $episodeRepository;
+        $this->fileUploader = $fileUploader;
     }
 
     /**
@@ -46,6 +53,7 @@ class ProjectController extends AdminController
 
     /**
      * @Route("/new", name="app_admin_project_new", methods={"GET", "POST"})
+     * @throws Exception
      */
     public function new(Request $request): Response
     {
@@ -53,7 +61,15 @@ class ProjectController extends AdminController
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            /** @var UploadedFile $coverImageFile */
+            $coverImageFile = $form->get('coverImage')->getData();
+            if ($coverImageFile)
+            {
+                $coverImageFileName = $this->fileUploader->upload($coverImageFile, $this->getParameter('projects_dir'), $project->getToken());
+                $project->setCoverImage($coverImageFileName);
+            }
             $this->projectRepository->add($project, true);
 
             return $this->redirectToRoute('app_admin_project_index', [], Response::HTTP_SEE_OTHER);
@@ -68,14 +84,24 @@ class ProjectController extends AdminController
 
     /**
      * @Route("/{id}/edit", name="app_admin_project_edit", methods={"GET", "POST"})
+     * @throws Exception
      */
     public function edit(Request $request, Project $project): Response
     {
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            /** @var UploadedFile $coverImageFile */
+            $coverImageFile = $form->get('coverImage')->getData();
+            if ($coverImageFile)
+            {
+                $coverImageFileName = $this->fileUploader->upload($coverImageFile, $this->getParameter('projects_dir'), $project->getToken());
+                $project->setCoverImage($coverImageFileName);
+            }
             $project->setUpdatedAt(new DateTimeImmutable());
+
             $this->projectRepository->add($project, true);
 
             return $this->redirectToRoute('app_admin_project_index', [], Response::HTTP_SEE_OTHER);

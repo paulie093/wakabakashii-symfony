@@ -13,6 +13,7 @@
                 <th scope="col">{{ 'column.id'|trans([], 'admin') }}</th>
                 <th scope="col">{{ 'column.title'|trans([], 'admin') }}</th>
                 <th scope="col">{{ 'column.content'|trans([], 'admin') }}</th>
+                <th scope="col">{{ 'column.related_project'|trans([], 'admin') }}</th>
                 <th scope="col">{{ 'column.created_at'|trans([], 'admin') }}</th>
                 <th scope="col">{{ 'column.actions'|trans([], 'admin') }}</th>
             </tr>
@@ -23,6 +24,7 @@
                 <td class="align-middle">{{ news.id }}</td>
                 <td class="align-middle">{{ news.title }}</td>
                 <td class="align-middle">{{ news.content }}</td>
+                <td class="align-middle">{{ news.project ?: '-' }}</td>
                 <td class="align-middle">{{ news.createdAt ? news.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td class="align-middle">
                     <a class="btn btn-primary btn-icon-split btn-sm" href="{{ path('app_admin_news_edit', {'id': news.id}) }}">

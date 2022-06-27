@@ -39,13 +39,4 @@ class EpisodeRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-    public function findByProject(Project $project): array
-    {
-        $queryBuilder = $this->createQueryBuilder('episode')
-            ->innerJoin('episode.project', 'project', 'WITH', 'project.id = :projectId')
-            ->setParameter('projectId', $project->getId());
-
-        return $queryBuilder->getQuery()->getResult();
-    }
 }

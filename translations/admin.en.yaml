@@ -56,7 +56,10 @@ column:
         typesetter: Typesetter(s)
         encoder: Encoder(s)
     roles: Roles
-    cover_image: Cover Image
+    image:
+        cover: Cover Image
+        news: News Image %number%
+        episode: Episode Image
 
 button:
     add: Add New Record

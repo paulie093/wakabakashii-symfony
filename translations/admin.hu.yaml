@@ -57,7 +57,10 @@ column:
         typesetter: Formázó(k)
         encoder: Videó kódoló(k)
     roles: Szerepkörök
-    cover_image: Borítókép
+    image:
+        cover: Borítókép
+        news: Hírkép %number%
+        episode: Epizódkép
 
 button:
     add: Új rekord hozzáadása

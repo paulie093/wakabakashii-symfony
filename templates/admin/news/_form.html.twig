@@ -1,0 +1,49 @@
+<div class="card mt-4 card-body shadow-sm">
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.title) }}
+    {{ form_row(form.content) }}
+    {{ form_row(form.project) }}
+    {{ form_row(form.author) }}
+    {{ form_row(form.image1) }}
+
+    {% if news.image1 %}
+    <div class="mb-3 row">
+        <label class="col-form-label col-sm-2"></label>
+        <div class="col-sm-10">
+            <img src="{{ asset('uploads/news/' ~ news.image1) }}" alt="{{ news.image1 }}">
+        </div>
+    </div>
+    {% endif %}
+
+    {{ form_row(form.image2) }}
+
+    {% if news.image2 %}
+        <div class="mb-3 row">
+            <label class="col-form-label col-sm-2"></label>
+            <div class="col-sm-10">
+                <img src="{{ asset('uploads/news/' ~ news.image2) }}" alt="{{ news.image2 }}">
+            </div>
+        </div>
+    {% endif %}
+
+    {{ form_row(form.image3) }}
+
+    {% if news.image3 %}
+        <div class="mb-3 row">
+            <label class="col-form-label col-sm-2"></label>
+            <div class="col-sm-10">
+                <img src="{{ asset('uploads/news/' ~ news.image3) }}" alt="{{ news.image3 }}">
+            </div>
+        </div>
+    {% endif %}
+
+    <button class="btn btn-success btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+        </span>
+        <span class="text">{{ button_label|default('button.save')|trans([], 'admin') }}</span>
+    </button>
+{{ form_end(form) }}
+</div>

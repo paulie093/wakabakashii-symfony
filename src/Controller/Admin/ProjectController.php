@@ -97,6 +97,9 @@ class ProjectController extends AdminController
             $coverImageFile = $form->get('coverImage')->getData();
             if ($coverImageFile)
             {
+                if ($project->getCoverImage()) {
+                    unlink($this->getParameter('projects_dir') . "/" . $project->getCoverImage());
+                }
                 $coverImageFileName = $this->fileUploader->upload($coverImageFile, $this->getParameter('projects_dir'), $project->getToken());
                 $project->setCoverImage($coverImageFileName);
             }
@@ -131,17 +134,16 @@ class ProjectController extends AdminController
      */
     public function listEpisodes(Project $project): Response
     {
-        $projectEpisodes = $this->episodeRepository->findByProject($project);
-
         return $this->render('admin/project_episode/index.html.twig', [
             'page_title' => $project->getTitle() . " - " . $this->translator->trans('title.project.episode.list', [], 'admin'),
             'project' => $project,
-            'episodes' => $projectEpisodes,
+            'episodes' => $project->getEpisodes(),
         ]);
     }
 
     /**
      * @Route("/{id}/episodes/new", name="app_admin_project_episode_new", methods={"GET", "POST"})
+     * @throws Exception
      */
     public function addProjectEpisode(Request $request, Project $project): Response
     {
@@ -149,7 +151,16 @@ class ProjectController extends AdminController
         $form = $this->createForm(EpisodeType::class, $episode);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            /** @var UploadedFile $episodeImageFile */
+            $episodeImageFile = $form->get('episodeImage')->getData();
+            if ($episodeImageFile)
+            {
+                $filename = $this->fileUploader->upload($episodeImageFile, $this->getParameter('episode_images_dir') . "/" . $project->getToken(), "ep" . $episode->getEpisodeNumber());
+                $episode->setEpisodeImage($filename);
+            }
+
             $episode->setProject($project);
             $this->episodeRepository->add($episode, true);
 
@@ -166,13 +177,27 @@ class ProjectController extends AdminController
 
     /**
      * @Route("/{id}/episodes/{episodeId}/edit", name="app_admin_project_episode_edit", methods={"GET", "POST"})
+     * @throws Exception
      */
-    public function editProjectEpisode(Request $request, Project $project, Episode $episode): Response
+    public function editProjectEpisode(Request $request, Project $project, int $episodeId): Response
     {
+        $episode = $this->episodeRepository->find($episodeId);
         $form = $this->createForm(EpisodeType::class, $episode);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            /** @var UploadedFile $episodeImageFile */
+            $episodeImageFile = $form->get('episodeImage')->getData();
+            if ($episodeImageFile)
+            {
+                if ($episode->getEpisodeImage()) {
+                    unlink($this->getParameter('episode_images_dir') . "/" . $episode->getEpisodeImage());
+                }
+                $filename = $this->fileUploader->upload($episodeImageFile, $this->getParameter('episode_images_dir') . "/" . $project->getToken(), "ep" . $episode->getEpisodeNumber());
+                $episode->setEpisodeImage($filename);
+            }
+
             $this->episodeRepository->add($episode, true);
 
             return $this->redirectToRoute('app_admin_project_episode_index', ['id' => $project->getId()], Response::HTTP_SEE_OTHER);
@@ -192,8 +217,9 @@ class ProjectController extends AdminController
     /**
      * @Route("/{id}/episodes/{episodeId}", name="app_admin_project_episode_delete", methods={"POST"})
      */
-    public function deleteProjectEpisode(Request $request, Project $project, Episode $episode): Response
+    public function deleteProjectEpisode(Request $request, Project $project, int $episodeId): Response
     {
+        $episode = $this->episodeRepository->find($episodeId);
         if ($this->isCsrfTokenValid('delete'.$episode->getId(), $request->request->get('_token'))) {
             $this->episodeRepository->remove($episode, true);
         }

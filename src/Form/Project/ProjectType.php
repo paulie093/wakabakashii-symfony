@@ -33,7 +33,8 @@ class ProjectType extends AbstractType
             ->add('fansubTeam', null, ['label' => new TranslatableMessage('column.fansub.team', [], 'admin')])
             ->add('coverImage', FileType::class, [
                 'mapped' => false,
-                'label' => new TranslatableMessage('column.cover_image', [], 'admin'),
+                'required' => false,
+                'label' => new TranslatableMessage('column.image.cover', [], 'admin'),
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',

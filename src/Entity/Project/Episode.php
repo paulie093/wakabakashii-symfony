@@ -64,6 +64,11 @@ class Episode
     private $onlineHost;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $episodeImage;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $thumbnailUrl;
@@ -189,6 +194,18 @@ class Episode
     public function setThumbnailUrl(?string $thumbnailUrl): self
     {
         $this->thumbnailUrl = $thumbnailUrl;
+
+        return $this;
+    }
+
+    public function getEpisodeImage(): ?string
+    {
+        return $this->episodeImage;
+    }
+
+    public function setEpisodeImage(?string $episodeImage): Episode
+    {
+        $this->episodeImage = $episodeImage;
 
         return $this;
     }

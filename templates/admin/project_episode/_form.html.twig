@@ -1,0 +1,31 @@
+<div class="card mt-4 card-body shadow-sm">
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.title) }}
+    {{ form_row(form.titleJapRomaji) }}
+    {{ form_row(form.titleJapKanji) }}
+    {{ form_row(form.episodeNumber) }}
+    {{ form_row(form.uploadDate) }}
+    {{ form_row(form.downloadUrl) }}
+    {{ form_row(form.onlineEmbedId) }}
+    {{ form_row(form.onlineHost) }}
+    {{ form_row(form.episodeImage) }}
+
+    {% if episode.episodeImage %}
+    <div class="mb-3 row">
+        <label class="col-form-label col-sm-2"></label>
+        <div class="col-sm-10">
+            <img src="{{ asset('uploads/project-episodes/' ~ episode.project.token ~ '/' ~ episode.episodeImage) }}" alt="{{ episode.episodeImage }}">
+        </div>
+    </div>
+    {% endif %}
+
+    <button class="btn btn-success btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+        </span>
+        <span class="text">{{ button_label|default('button.save')|trans([], 'admin') }}</span>
+    </button>
+{{ form_end(form) }}
+</div>

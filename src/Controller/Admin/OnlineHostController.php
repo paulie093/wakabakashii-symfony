@@ -26,7 +26,7 @@ class OnlineHostController extends AdminController
     }
 
     /**
-     * @Route("/", name="app_admin_online_host_index", methods={"GET"})
+     * @Route("/list", name="app_admin_online_host_index", methods={"GET"})
      */
     public function index(): Response
     {

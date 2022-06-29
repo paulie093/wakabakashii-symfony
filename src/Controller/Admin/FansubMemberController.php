@@ -25,7 +25,7 @@ class FansubMemberController extends AdminController
     }
 
     /**
-     * @Route("/", name="app_admin_fansub_member_index", methods={"GET"})
+     * @Route("/list", name="app_admin_fansub_member_index", methods={"GET"})
      */
     public function index(): Response
     {

@@ -25,7 +25,7 @@ class ProjectTypeController extends AdminController
     }
 
     /**
-     * @Route("/", name="app_admin_project_type_index", methods={"GET"})
+     * @Route("/list", name="app_admin_project_type_index", methods={"GET"})
      */
     public function index(): Response
     {

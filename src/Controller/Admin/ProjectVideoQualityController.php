@@ -25,7 +25,7 @@ class ProjectVideoQualityController extends AdminController
     }
 
     /**
-     * @Route("/", name="app_admin_project_video_quality_index", methods={"GET"})
+     * @Route("/list", name="app_admin_project_video_quality_index", methods={"GET"})
      */
     public function index(): Response
     {

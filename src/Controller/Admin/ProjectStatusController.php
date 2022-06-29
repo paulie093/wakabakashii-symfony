@@ -25,7 +25,7 @@ class ProjectStatusController extends AdminController
     }
 
     /**
-     * @Route("/", name="app_admin_project_status_index", methods={"GET"})
+     * @Route("/list", name="app_admin_project_status_index", methods={"GET"})
      */
     public function index(): Response
     {

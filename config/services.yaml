@@ -7,6 +7,7 @@ parameters:
     projects_dir: '%kernel.project_dir%/public/uploads/projects'
     episode_images_dir: '%kernel.project_dir%/public/uploads/project-episodes'
     news_dir: '%kernel.project_dir%/public/uploads/news'
+    timezone: '%env(APP_TIMEZONE)%'
 
 services:
     # default configuration for services in *this* file
